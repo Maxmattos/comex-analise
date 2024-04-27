@@ -1,6 +1,8 @@
 # Comex Case
 
 ## Descrição
+O projeto tem como objetivo gerar uma base com as informações de NCM e Município, de forma a gerar o máximo de cobertura possível com esses dados.
+Para execução do projeto, foi necessário pesquisar sobre o assunto para agregar mais conhecimento, como exemplo: [NCM Receita](https://www.gov.br/receitafederal/pt-br/assuntos/aduana-e-comercio-exterior/classificacao-fiscal-de-mercadorias/ncm).
 
 ## Pré-requisitos
 - [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git);
@@ -14,11 +16,21 @@ git clone https://github.com/Maxmattos/comex-analise
 
 - Builds, (re)creates, starts, e attaches ao container:
 ```sh
+sudo docker compose -f ./comex-analise/docker-compose.yml up
+```
+
+## Output esperado
+Seguida as instruções, deve-se constar, dentro do diretório `./finalDataSet`, um arquivo com o seguinte título `final_data.csv`. Este representa um dataset com o percentual de cobertura na relação de NCM por Município.
+
+## Conclusão pessoal
+É possível concluir, que caso a % de um tipo de NCM seja muito alta para um Município, até mesmo 100%, indica que aquele produto é o principal de importação para aquela cidade.
+
 sudo docker compose -f ~/comex-analise/docker-compose.yml
 ```
 
 ## Output esperado
 Seguida as instruções, deve-se constar, dentro do diretório `./finalDataSet`, um arquivo com o seguinte título `final_data.csv`. Este represta um dataset com o percentual de cobertura 
+
 
 ## Tecnologias
 No desenvolvimento do projeto, fez-se uso das seguintes tecnologias:
