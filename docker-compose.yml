@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  data-pipeline:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bash -c "python scripts/main.py"
+    container_name: comex-analise
+    volumes:
+      - "./rawData:/home/data-case/rawData"
+      - "./scripts:/home/data-case/scripts"
+      - "./finalDataSet:/home/data-case/finalDataSet"
