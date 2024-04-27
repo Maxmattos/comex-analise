@@ -25,10 +25,6 @@ Seguida as instruções, deve-se constar, dentro do diretório `./finalDataSet`,
 ## Conclusão pessoal
 É possível concluir, que caso a % de um tipo de NCM seja muito alta para um Município, até mesmo 100%, indica que aquele produto é o principal de importação para aquela cidade.
 
-## Output esperado
-Seguida as instruções, deve-se constar, dentro do diretório `./finalDataSet`, um arquivo com o seguinte título `final_data.csv`. Este represta um dataset com o percentual de cobertura 
-
-
 ## Tecnologias
 No desenvolvimento do projeto, fez-se uso das seguintes tecnologias:
 
