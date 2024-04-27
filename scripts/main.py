@@ -57,7 +57,7 @@ def save_to_csv(df: pd.DataFrame, dir_path: str, filename: str, sort_by=None):
 read_data('./rawData')
 
 # Setting a limit
-limit = 1000
+limit = 50000
 
 # Filtering data
 EXP_2023_MUN_df = filter_data(EXP_2023_MUN_df, 'CO_ANO', 'CO_MES', '2023-01-01', '2023-04-01', limit)
