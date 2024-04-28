@@ -3,17 +3,14 @@ import os
 
 
 def read_data(dir_path: str):
+
     csv_files = os.listdir(dir_path)
 
     for file in csv_files:
-        if file.endswith('.csv'):
-            filepath = os.path.join(dir_path, file)
-            # Tentar ler com Latin1 (ISO-8859-1) sem prints
-            try:
-                globals()[file.replace('.csv', '_df')] = pd.read_csv(filepath, sep=';', encoding='latin1', dtype=str)
-            except UnicodeDecodeError:
-                # Se ocorrer um erro, o arquivo não será lido e a exceção será silenciosamente ignorada
-                pass
+
+        filename = file.replace('.csv', '_df')
+        filepath = os.path.join(dir_path, file)
+        globals()[filename] = pd.read_csv(filepath, sep=';', encoding='latin1', dtype=str)
 
 
 def filter_data(df: pd.DataFrame, year_col: str, month_col: str, from_date: str, to_date: str, limit: int = None) -> pd.DataFrame:
@@ -28,6 +25,7 @@ def filter_data(df: pd.DataFrame, year_col: str, month_col: str, from_date: str,
     
     return df
 
+
 def get_sh4_from_ncm(df: pd.DataFrame, ncm_col: str, ) -> pd.DataFrame:
 
     df = df.copy()
@@ -35,11 +33,13 @@ def get_sh4_from_ncm(df: pd.DataFrame, ncm_col: str, ) -> pd.DataFrame:
 
     return df
 
+
 def join_data(df1: pd.DataFrame, df2: pd.DataFrame, how: str, on: str) -> pd.DataFrame:
 
     df = pd.merge(df1, df2, how=how, on=on, validate='m:m')
 
     return df
+
 
 def save_to_csv(df: pd.DataFrame, dir_path: str, filename: str, sort_by=None):
 

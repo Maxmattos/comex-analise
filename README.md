@@ -9,6 +9,12 @@ Para execução do projeto, foi necessário pesquisar sobre o assunto para agreg
 - [docker](https://docs.docker.com/engine/install/ubuntu/).
 
 ## Instruções
+- Caso necessário:
+```sh
+apt update
+apt install -y sudo
+```
+
 - Clonar o repositório do projeto:
 ```sh
 git clone https://github.com/Maxmattos/comex-analise
@@ -18,6 +24,8 @@ git clone https://github.com/Maxmattos/comex-analise
 ```sh
 sudo docker compose -f ./comex-analise/docker-compose.yml up
 ```
+## Melhoria
+Para melhor leitura do dataset final, a coluna de porcentagem foi colocada com duas casas decimais.
 
 ## Output esperado
 Seguida as instruções, deve-se constar, dentro do diretório `./finalDataSet`, um arquivo com o seguinte título `final_data.csv`. Este representa um dataset com o percentual de cobertura na relação de NCM por Município.
