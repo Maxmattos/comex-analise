@@ -4,17 +4,16 @@
 O projeto tem como objetivo gerar uma base com as informações de NCM e Município, de forma a gerar o máximo de cobertura possível com esses dados.
 Para execução do projeto, foi necessário pesquisar sobre o assunto para agregar mais conhecimento, como exemplo: [NCM Receita](https://www.gov.br/receitafederal/pt-br/assuntos/aduana-e-comercio-exterior/classificacao-fiscal-de-mercadorias/ncm).
 
+Tem-se a seguir o diagrama de funcionamento do projeto:
+
+![diagrama do projeto](.img/diagram.png)
+
 ## Pré-requisitos
 - [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git);
-- [docker](https://docs.docker.com/engine/install/ubuntu/).
+- [docker](https://docs.docker.com/engine/install/ubuntu/);
+- [docker compose](https://docs.docker.com/compose/install/linux/).
 
 ## Instruções
-- Caso necessário:
-```sh
-apt update
-apt install -y sudo
-```
-
 - Clonar o repositório do projeto:
 ```sh
 git clone https://github.com/Maxmattos/comex-analise
@@ -22,8 +21,11 @@ git clone https://github.com/Maxmattos/comex-analise
 
 - Builds, (re)creates, starts, e attaches ao container:
 ```sh
-sudo docker compose -f ./comex-analise/docker-compose.yml up
+cd comex-analise
+docker compose up
 ```
+Obs.: devido a questões de privilégios do seu ambiente, pode ser necessário adicionar "sudo" para o comando do docker compose.
+
 ## Melhoria
 Para melhor leitura do dataset final, a coluna de porcentagem foi colocada com duas casas decimais.
 
