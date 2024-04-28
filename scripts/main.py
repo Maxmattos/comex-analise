@@ -3,14 +3,17 @@ import os
 
 
 def read_data(dir_path: str):
-    
     csv_files = os.listdir(dir_path)
 
     for file in csv_files:
-        
-        filename = file.replace('.csv', '_df')
-        filepath = os.path.join(dir_path, file)
-        globals()[filename] = pd.read_csv(filepath, sep=';', encoding='latin1', dtype=str)
+        if file.endswith('.csv'):
+            filepath = os.path.join(dir_path, file)
+            # Tentar ler com Latin1 (ISO-8859-1) sem prints
+            try:
+                globals()[file.replace('.csv', '_df')] = pd.read_csv(filepath, sep=';', encoding='latin1', dtype=str)
+            except UnicodeDecodeError:
+                # Se ocorrer um erro, o arquivo não será lido e a exceção será silenciosamente ignorada
+                pass
 
 
 def filter_data(df: pd.DataFrame, year_col: str, month_col: str, from_date: str, to_date: str, limit: int = None) -> pd.DataFrame:
@@ -73,18 +76,18 @@ merged_df = join_data(EXP_2023_MUN_df, EXP_2023_df, how='inner', on='SH4')
 ncm_per_mun_count = merged_df.groupby(['CO_MUN', 'CO_NCM']).size().reset_index(name='Count')
 total_per_mun = merged_df.groupby('CO_MUN').size().reset_index(name='Total')
 percentage_df = pd.merge(ncm_per_mun_count, total_per_mun, on='CO_MUN')
-percentage_df['Percentage'] = (percentage_df['Count'] / percentage_df['Total']) * 100
+percentage_df['Percentage'] = ((percentage_df['Count'] / percentage_df['Total']) * 100).round(2)
 
 
-percentage_df.rename(columns={'CO_NCM': 'NCM', 'CO_MUN': 'Município'}, inplace=True)
+percentage_df.rename(columns={'CO_NCM': 'NCM', 'CO_MUN': 'City name'}, inplace=True)
 
 
-percentage_df = pd.merge(percentage_df, NCM_df[['CO_NCM', 'NO_NCM_POR']], left_on='NCM', right_on='CO_NCM', how='left')
-percentage_df = pd.merge(percentage_df, UF_MUN_df[['CO_MUN_GEO', 'NO_MUN']], left_on='Município', right_on='CO_MUN_GEO', how='left')
+percentage_df = pd.merge(percentage_df, NCM_df[['CO_NCM', 'NO_NCM_ING']], left_on='NCM', right_on='CO_NCM', how='left')
+percentage_df = pd.merge(percentage_df, UF_MUN_df[['CO_MUN_GEO', 'NO_MUN']], left_on='City name', right_on='CO_MUN_GEO', how='left')
 
 
-percentage_df = percentage_df[['CO_NCM', 'NO_NCM_POR', 'NO_MUN', 'Percentage']]
-percentage_df.rename(columns={'CO_NCM': 'NCM','NO_NCM_POR': 'Tipo do Material', 'NO_MUN': 'Nome do Município', 'Percentage': 'Percentual'}, inplace=True)
+percentage_df = percentage_df[['CO_NCM', 'NO_NCM_ING', 'NO_MUN', 'Percentage']]
+percentage_df.rename(columns={'CO_NCM': 'NCM','NO_NCM_ING': 'Material type', 'NO_MUN': 'City name', 'Percentage': 'Percentage'}, inplace=True)
 
 # Saving the data as csv
 save_to_csv(percentage_df, './finalDataSet', 'final_data.csv', sort_by='NCM')
